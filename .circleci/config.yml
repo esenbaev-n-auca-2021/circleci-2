@@ -10,10 +10,7 @@ jobs:
       - image: hashicorp/terraform:0.12.17
     steps:
       - checkout
-      - run:
-          name: Create Service Account key file from environment variable
-          working_directory: terraform
-          command: echo ${TF_SERVICE_ACCOUNT_KEY} > account.json
+     
       - run:
           name: Show Terraform version
           command: terraform version
@@ -27,7 +24,7 @@ jobs:
           command: terraform validate
       - run:
           name: Create Terraform plan
-          working_directory: terraform
+          working_directory: circleci/
           command: terraform plan -out /tmp/tf.plan
       - run:
           name: Run Terraform plan
