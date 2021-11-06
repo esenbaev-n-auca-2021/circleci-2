@@ -33,3 +33,7 @@ jobs:
           name: Run Terraform plan
           working_directory: terraform
           command: terraform apply /tmp/tf.plan
+workflows:
+  main:
+    jobs:
+      - terraform
