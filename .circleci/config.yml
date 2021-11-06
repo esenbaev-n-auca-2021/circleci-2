@@ -16,7 +16,7 @@ jobs:
           command: terraform version
       - run:
           name: Download required Terraform plugins
-          working_directory: ./
+          working_directory: terraform
           command: terraform init
       - run:
           name: Validate Terraform configuration
