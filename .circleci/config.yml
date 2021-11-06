@@ -29,11 +29,11 @@ jobs:
           
       - run:
           name: Create Terraform plan
-          working_directory: ./
+          path: .
           command: terraform plan -out /tmp/tf.plan
       - run:
           name: Run Terraform plan
-          working_directory: ./
+          path: .
           command: terraform apply /tmp/tf.plan
 workflows:
   main:
