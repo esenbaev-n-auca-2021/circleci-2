@@ -18,6 +18,7 @@ jobs:
           name: Download required Terraform plugins
           working_directory: terraform
           command: terraform init
+      - run: pwd
       - run:
           name: Validate Terraform configuration
           working_directory: terraform
