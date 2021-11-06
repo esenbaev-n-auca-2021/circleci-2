@@ -22,6 +22,9 @@ jobs:
           name: Validate Terraform configuration
           working_directory: terraform
           command: terraform validate
+      - run: cd ../..
+         
+          
       - run:
           name: Create Terraform plan
           working_directory: ./
