@@ -23,6 +23,7 @@ jobs:
           working_directory: terraform
           command: terraform validate
       - run: cd ../..
+      - run: pwd
          
           
       - run:
