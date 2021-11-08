@@ -3,7 +3,7 @@ provider "google" {
   region = "us-central1"
   zone = "us-centrall1-c"
 
-  credentials = file("playground-s-11-fc5fddd2-821f9645e0b0.json")
+  credentials = file("playground-s-11-283fb583-0ae3915f4c8d.json")
 }
 
 # module "gke" {
