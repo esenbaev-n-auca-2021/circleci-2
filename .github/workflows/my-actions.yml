@@ -22,21 +22,10 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       
-    - name: Terraform Init
-      run: terraform init
-      env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+    - name: Terraform Destroy
+      run: terraform destroy --auto-approve
           
  
 
-    - name: Terraform Plan
-      run: terraform plan
-      env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-          
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply --auto-approve
-      env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+  
   
