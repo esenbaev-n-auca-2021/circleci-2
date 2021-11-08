@@ -5,6 +5,8 @@ on:
     paths:
     - 'examples/**'
 
+
+
 concurrency: 
   group: ${{ github.action == 'terraform-automation' }}
   cancel-in-progress: true
