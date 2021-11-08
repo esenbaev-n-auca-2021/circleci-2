@@ -1,10 +1,13 @@
 name: 'Terraform CI'
 
-on:
+on: 
   push:
-    branches:
-    - main
-  
+    paths:
+    - 'examples/**'
+
+concurrency: 
+  group: ${{ github.action == 'terraform-automation' }}
+  cancel-in-progress: true
   
 
 jobs:
@@ -42,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: tf_plan
-          path: ./tf_plan
+          path: ./examples/tf_plan
           if-no-files-found: error
           retention-days: 1
 
@@ -72,7 +75,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: tf_plan
-        path: ./
+        path: ./examples/tf_plan
 
     # Provision resources via Terraform        
     - name: Terraform Apply
