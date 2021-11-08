@@ -1,9 +1,9 @@
 provider "google" {
-  project = "playground-s-11-0753b0d7"
+  project = "playground-s-11-283fb583"
   region = "us-central1"
   zone = "us-centrall1-c"
 
-  credentials = file("playground-s-11-0753b0d7-dac1033e368a.json")
+  credentials = file("playground-s-11-fc5fddd2-821f9645e0b0.json")
 }
 
 # module "gke" {
