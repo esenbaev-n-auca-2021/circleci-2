@@ -1,10 +1,8 @@
 name: 'Terraform CI'
 
-on:
-  push:
-    branches:
-    - main
-  
+"on":
+  pull_request:
+  push: { branches: [main] }
   
 
 jobs:
@@ -19,26 +17,32 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       
+    - name: Terraform Fmt
+      id: fmt
+      run: terraform fmt -check
+      continue-on-error: true
+        
     - name: Terraform Init
       run: terraform init
       env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           
-          
-          
-    - name: Terraform Format
-      run: terraform fmt -check
-      env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+    - name: Terraform validate
+      id: validate
+      run: terraform validate
+
+        
       
-    - name: Terraform Plan
-      run: terraform plan
+    - name: Terraform plan
+      id: plan
+      run: terraform plan -no-color
       env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
           
-    - name: Terraform Apply
+    - name: Terraform apply
+      id: apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      run: terraform apply -auto-approve
+      run: terraform apply -auto-approve -input=false
       env:
           GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
   
