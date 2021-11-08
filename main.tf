@@ -16,6 +16,10 @@ provider "google" {
 module "network" {
   source = "./network"
   delete_default_routes_on_create = true
+  
+  
+  
+  
 
 
 #==========================SUBNETS=============================
