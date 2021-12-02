@@ -1,38 +1,43 @@
 version: 2.1
-orbs:
-  gcp-gcr: circleci/gcp-gcr@0.6.1
 
-jobs:
-  terraform:
-    docker:
-    # Terraform image version should be the same as when
-    # you run terraform before from the local machine
-      - image: hashicorp/terraform:1.0.5
-    steps:
-      - checkout
-     
+jobs: 
+  build:
+    docker: 
+      - image: hashicorp/terraform   # this terraform image to run our project 
+    steps: 
+      - checkout 
       - run:
-          name: Show Terraform version
-          command: terraform version
+          name: "init"
+          command: terraform init 
       - run:
-          name: Download required Terraform plugins
-          working_directory: terraform
-          command: terraform init
+          name: "plan"
+          command: terraform plan
       
+  build2:
+    docker: 
+      - image: hashicorp/terraform   # this terraform image to run our project 
+    steps:
+      - checkout 
       - run:
-          name: Validate Terraform configuration
-          working_directory: terraform
-          command: terraform validate
-      - run: terraform init 
+          name: "init"
+          command: terraform init 
       - run:
-          name: Create Terraform plan
-          path: .
-          command: terraform plan -out /tmp/tf.plan
+          name: "plan"
+          command: terraform plan
       - run:
-          name: Run Terraform plan
-          path: .
-          command: terraform apply /tmp/tf.plan
-workflows:
-  main:
+          name: "apply"
+          command: terraform apply --auto-approve 
+workflows: 
+  build:
     jobs:
-      - terraform
+      - build
+          
+      - hold:
+          type: approval 
+          requires:
+            - build
+      - build2:
+          
+          requires: 
+            - hold
+            - build
